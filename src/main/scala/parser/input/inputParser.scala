@@ -8,7 +8,7 @@ import InputItemParser.parseItem
 
 
 object InputParser {
-    def parser(rawData: List[String]): Either[BadDataException, Input] = {
+    def inputParser(rawData: List[String]): Either[BadDataException, Input] = {
 
         if (!isValidMapSize(rawData.head)) {
             return Left(BadDataException("Bad map size value"))

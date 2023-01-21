@@ -2,24 +2,24 @@ package fr.esgi.project
 
 import scala.io.StdIn
 import com.typesafe.config.{Config, ConfigFactory}
-
-import io.{Read, Write}
-import parser.input.InputParser.parser
-import domain.Input.Input
 import Error.BadDataException
+import io.{Read, Write}
+import domain.Input.Input
+import parser.input.InputParser.{inputParser}
+import parser.output.OutputParser.{outputJsonFormatter}
 
 object Main extends Greeting with App {
 
   val conf: Config = ConfigFactory.load()
   var rawData = Read.readFile(conf.getString("application.input-file"))
 
-  val res: Either[BadDataException, Input] = parser(rawData)
+  val res: Either[BadDataException, Input] = inputParser(rawData)
 
   res match {
       case Left(s) => println(s)
       case Right(s) => {
         println(s)
-        Write.writeFile(conf.getString("application.output-file"), res.toString())
+        Write.writeFile(conf.getString("application.output-file"), outputJsonFormatter(res.right.get))
       }
   }
 
