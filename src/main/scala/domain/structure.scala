@@ -1,7 +1,8 @@
 package fr.esgi.project
+package domain
 
 package Structure {
-    object Orientation extends Enumeration {
+  object Orientation extends Enumeration {
     type Orientation = Value
     val N, E, S, O = Value
   }
