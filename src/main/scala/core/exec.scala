@@ -2,16 +2,18 @@ package fr.esgi.project
 package core
 
 import scala.annotation.tailrec
-import domain.Input.{Input, InputItem, State}
+import domain.Input.{Input, InputItem}
 import domain.Structure.{Instruction, Orientation}
+import domain.State.State
+import domain.output.OutputItem
 
 
 object Exec {
-    def exec(input: InputItem): State = {
+    def exec(input: InputItem): OutputItem = {
         println(s"Position de départ : ${input.currentState}")
         val tempo = run(input.instructions, input.currentState)
         println(s"Position d'arrivée : ${tempo}")
-        tempo
+        OutputItem(input.currentState, tempo, input.instructions)
         
     }
 

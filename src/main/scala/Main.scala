@@ -5,6 +5,7 @@ import com.typesafe.config.{Config, ConfigFactory}
 import Error.BadDataException
 import io.{Read, Write}
 import domain.Input.Input
+import domain.output.{OutputData, OutputItem}
 import parser.input.InputParser.{inputParser}
 import parser.output.OutputParser.{outputJsonFormatter}
 import core.Exec.exec
@@ -20,14 +21,12 @@ object Main extends Greeting with App {
       case Left(s) => println(s)
       case Right(s) => {
         println(res.right.get)
-        // Exec.exec(res.right.get.input, res.right.get.input.head.currentState)
         val resultat = res.right.get.input.map(exec)
         println(resultat)
         
-        Write.writeFile(conf.getString("application.output-file"), outputJsonFormatter(res.right.get))
+        Write.writeFile(conf.getString("application.output-file"), outputJsonFormatter(OutputData(res.right.get.size, resultat)))
       }
   }
-
   
 }
 

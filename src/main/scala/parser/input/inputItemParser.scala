@@ -3,7 +3,8 @@ package parser.input
 
 import Error.BadDataException
 import domain.Structure.{Orientation, Instruction, FileType}
-import domain.Input.{Input, InputItem, State}
+import domain.Input.{Input, InputItem}
+import domain.State.State
 
 object InputItemParser {
 
