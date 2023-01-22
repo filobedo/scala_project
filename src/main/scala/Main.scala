@@ -7,7 +7,7 @@ import io.{Read, Write}
 import domain.Input.Input
 import domain.output.{OutputData, OutputItem}
 import parser.input.InputParser.{inputParser}
-import parser.output.OutputParser.{outputJsonFormatter}
+import parser.output.OutputParser.{outputJsonParser, OutputCsvParser}
 import core.Exec.exec
 
 object Main extends Greeting with App {
@@ -24,7 +24,8 @@ object Main extends Greeting with App {
         val resultat = res.right.get.input.map(exec)
         println(resultat)
         
-        Write.writeFile(conf.getString("application.output-file"), outputJsonFormatter(OutputData(res.right.get.size, resultat)))
+        Write.writeFile(conf.getString("application.output-file"), outputJsonParser(OutputData(res.right.get.size, resultat)))
+        Write.writeFile("output.csv", OutputCsvParser(OutputData(res.right.get.size, resultat)))
       }
   }
   

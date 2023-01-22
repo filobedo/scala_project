@@ -44,5 +44,4 @@ bin/
 
 null/
 
-output
-output.json
+output.*
