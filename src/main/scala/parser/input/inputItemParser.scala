@@ -3,7 +3,7 @@ package parser.input
 
 import Error.BadDataException
 import domain.Structure.{Orientation, Instruction, FileType}
-import domain.Input.{Input, InputItem, StartPosition}
+import domain.Input.{Input, InputItem, State}
 
 object InputItemParser {
 
@@ -22,9 +22,9 @@ object InputItemParser {
         values.length == 3 && values(0).forall(_.isDigit) && values(1).forall(_.isDigit) && values(2).forall(_.isLetter)
     }
 
-    private def parsePosition(position: String): StartPosition = {
+    private def parsePosition(position: String): State = {
         val positionList = position.split(" ")
-        StartPosition(positionList(0).toInt, positionList(1).toInt, Orientation.withName(positionList(2)))
+        State((positionList(0).toInt, positionList(1).toInt), Orientation.withName(positionList(2)))
     }
     
 

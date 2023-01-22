@@ -7,6 +7,7 @@ import io.{Read, Write}
 import domain.Input.Input
 import parser.input.InputParser.{inputParser}
 import parser.output.OutputParser.{outputJsonFormatter}
+import core.Exec.exec
 
 object Main extends Greeting with App {
 
@@ -18,7 +19,11 @@ object Main extends Greeting with App {
   res match {
       case Left(s) => println(s)
       case Right(s) => {
-        println(s)
+        println(res.right.get)
+        // Exec.exec(res.right.get.input, res.right.get.input.head.currentState)
+        val resultat = res.right.get.input.map(exec)
+        println(resultat)
+        
         Write.writeFile(conf.getString("application.output-file"), outputJsonFormatter(res.right.get))
       }
   }
